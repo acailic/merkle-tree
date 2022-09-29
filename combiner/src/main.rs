@@ -29,7 +29,7 @@ impl FloatingImage {
         }
     }
     fn set_data (&mut self, data: Vec<u8>) -> Result<(), ImageDataErrors> {
-        if data.len() != self.data.capacity() {
+        if data.len() > self.data.capacity() {
             return Err(ImageDataErrors::BufferTooSmall);
         }
         self.data = data;
@@ -37,7 +37,7 @@ impl FloatingImage {
     }
 }
 
-fn main() -> Result<(), ImageDataErrors> {
+fn main() -> Result<(), ImageDataErrors> { // result type, or error
     let args = Args::new();
     let (image_1, image_format_1) = find_image_from_path(args.image_1);
     let (image_2, image_format_2) = find_image_from_path(args.image_2);
